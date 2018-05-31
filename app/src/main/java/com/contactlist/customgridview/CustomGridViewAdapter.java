@@ -32,6 +32,7 @@ public class CustomGridViewAdapter extends RecyclerView.Adapter<CustomGridViewAd
     private RequestOptions mOptions = new RequestOptions();
     private int mHeader_w = 200;
     private int mHeader_h = 200;
+    private int mHeader_r = 10;
 
     public interface OnItemClickLitener
     {
@@ -56,6 +57,9 @@ public class CustomGridViewAdapter extends RecyclerView.Adapter<CustomGridViewAd
         mHeader_w = width;
         mHeader_h = height;
     }
+    public void setHeaderRadius(int radius) {
+        mHeader_r = radius;
+    }
     @NonNull
     @Override
     public ContactHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -74,6 +78,7 @@ public class CustomGridViewAdapter extends RecyclerView.Adapter<CustomGridViewAd
                 .apply(bitmapTransform(multi))
                 .into(holder.headerView);
         holder.nameView.setText(mContacts.get(position).getNickname());
+
         if (mOnItemClickLitener != null)
         {
             holder.itemView.setOnClickListener(new View.OnClickListener()
@@ -101,8 +106,8 @@ public class CustomGridViewAdapter extends RecyclerView.Adapter<CustomGridViewAd
     public int getItemCount() {
         return mContacts.size();
     }
-    public void addData(int position, Contact item)
-    {
+
+    public void addData(int position, Contact item) {
         mContacts.add(position, item);
         notifyItemInserted(position);
     }
@@ -119,7 +124,6 @@ public class CustomGridViewAdapter extends RecyclerView.Adapter<CustomGridViewAd
 
         @Override
         public void setData(Contact item) {
-            nameView.setText(item.getNickname());
         }
     }
 }
